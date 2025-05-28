@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Injeto Car Auto Center</title>
+    <meta name="description" content="Auto center em Fazenda Rio Grande. Peças automotivas, mecânica geral, troca de óleo, freios, suspensão e mais com atendimento de confiança.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Dados estruturados JSON-LD para SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoRepair",
+      "name": "Injeto Car Auto Center",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua Pernambuco, 845",
+        "addressLocality": "Fazenda Rio Grande",
+        "addressRegion": "PR",
+        "postalCode": "83830-205",
+        "addressCountry": "BR"
+      },
+      "telephone": "+55 41 3797-6095",
+      "url": "https://seusite.com",
+      "sameAs": [
+        "https://wa.me/554137976095",
+        "https://mercadolivrelink"
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo-space">
+            <img src="LOGO.jpg" alt="Logo da empresa" width="100" height="100">
+        </div>
+        <div class="header-text" style="text-align: center">
+            <div class="main-title">INJETO CAR AUTO CENTER</div>
+            <div class="subtitle">Serviços automotivos em geral</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="descricao">
+            Somos um auto center localizado em <strong>Fazenda Rio Grande</strong> especializado em <strong>mecânica automotiva</strong>e venda de <strong>peças automotivas originais</strong> de alta qualidade. Atendimento confiável para cuidar do seu veículo como ele merece.
+        </div>
+
+        <div class="carousel-container">
+            <button class="carousel-btn left" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="carousel-track">
+                <img src="1f8ab107-037d-4c39-8eca-f76db0cbc7eb.jpg" alt="Imagem 2" class="carousel-img">
+                <img src="89d2b467-0a36-4b1a-87cd-b373c3cfeb0e.jpg" alt="Imagem 3" class="carousel-img">
+                <img src="c838cc3f-79c0-433a-ae56-595f787b4b3a.jpg" alt="Imagem 4" class="carousel-img">
+                <img src="f9534739-7558-447f-a453-8057b60572be.jpg" alt="Imagem 5" class="carousel-img">
+            </div>
+            <button class="carousel-btn right" aria-label="Próximo"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://wa.me/554137976095" target="_blank"><i class="fab fa-whatsapp"></i> 41 3797-6095</a>
+            <a href="https://mercadolivrelink" target="_blank"><i class="fa-solid fa-cart-shopping"></i> Mercado Livre </a>
+        </div>
+        <div class="footer-links">
+            <a href="https://www.google.com/maps?q=Rua+Pernambuco,+845,+Estados,+Fazenda+Rio+Grande,+CEP+83830-205" target="_blank">
+                <i class="fa-solid fa-location-dot"></i> Rua Pernambuco, 845 - Estados, Fazenda Rio Grande. CEP 83830-205
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel com centralização e bordas levemente visíveis
+        const images = Array.from(document.querySelectorAll('.carousel-img'));
+        const leftBtn = document.querySelector('.carousel-btn.left');
+        const rightBtn = document.querySelector('.carousel-btn.right');
+        let current = 0;
+        const total = images.length;
+
+        function updateCarousel() {
+            images.forEach((img, idx) => {
+                img.classList.remove('center', 'side', 'hidden', 'left-side', 'right-side');
+                img.style.zIndex = 1;
+                img.style.pointerEvents = "none";
+                img.style.opacity = "0";
+                img.style.transform = "scale(0.7)";
+                img.style.filter = "blur(2px) brightness(0.7)";
+                img.style.left = "0";
+            });
+
+            // Central image
+            images[current].classList.add('center');
+            images[current].style.zIndex = 3;
+            images[current].style.opacity = "1";
+            images[current].style.transform = "scale(1)";
+            images[current].style.filter = "none";
+            images[current].style.pointerEvents = "auto";
+            images[current].style.left = "0";
+
+            // Left side
+            const leftIdx = (current - 1 + total) % total;
+            images[leftIdx].classList.add('side','left-side');
+            images[leftIdx].style.zIndex = 2;
+            images[leftIdx].style.opacity = "0.55";
+            images[leftIdx].style.transform = "scale(0.8) translateX(-70%)";
+            images[leftIdx].style.filter = "blur(1.5px) brightness(0.7)";
+            images[leftIdx].style.left = "-60px";
+
+            // Right side
+            const rightIdx = (current + 1) % total;
+            images[rightIdx].classList.add('side','right-side');
+            images[rightIdx].style.zIndex = 2;
+            images[rightIdx].style.opacity = "0.55";
+            images[rightIdx].style.transform = "scale(0.8) translateX(70%)";
+            images[rightIdx].style.filter = "blur(1.5px) brightness(0.7)";
+            images[rightIdx].style.left = "60px";
+
+            // Hide others
+            for (let i = 0; i < total; i++) {
+                if (i !== current && i !== leftIdx && i !== rightIdx) {
+                    images[i].classList.add('hidden');
+                    images[i].style.opacity = "0";
+                    images[i].style.zIndex = 1;
+                }
+            }
+        }
+
+        function nextSlide() {
+            current = (current + 1) % total;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            current = (current - 1 + total) % total;
+            updateCarousel();
+        }
+
+        leftBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+        rightBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        updateCarousel();
+
+        let autoSlide = setInterval(nextSlide, 3000);
+
+        function resetAutoSlide() {
+            clearInterval(autoSlide);
+            autoSlide = setInterval(nextSlide, 3000);
+        }
+
+        [leftBtn, rightBtn, ...images].forEach(el => {
+            el.addEventListener('mouseenter', () => clearInterval(autoSlide));
+            el.addEventListener('mouseleave', resetAutoSlide);
+        });
+    </script>
+</body>
+</html>
